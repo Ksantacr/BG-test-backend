@@ -62,6 +62,8 @@ BGTest.Core/.DS_Store/
 BGTest.Infrastructure/.DS_Store/
 BGTest.Tests/.DS_Store/
 
+BGtest.API/logs
+
 [Oo]ut/
 msbuild.log
 msbuild.err
