@@ -36,7 +36,7 @@ public class ProductController: ControllerBase
     }
     
     [HttpPost("batch-number")]
-    public async Task<ActionResult> RegisterProductWithBatchNumber(RegisterProductWithBatchNumberDto registerProductWithBatchNumberDto)
+    public ActionResult RegisterProductWithBatchNumber([FromBody] RegisterProductWithBatchNumberDto registerProductWithBatchNumberDto)
     {
         return Ok();
     }

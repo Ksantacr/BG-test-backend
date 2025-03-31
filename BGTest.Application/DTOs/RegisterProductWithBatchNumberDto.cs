@@ -5,7 +5,7 @@ namespace BGTest.Application.DTOs;
 public class RegisterProductWithBatchNumberDto
 {
     public int ProductId { get; set; }
-    public int BatchNumber { get; set; }
+    public string BatchNumber { get; set; }
     [Required]
     public double Price { get; set; }
 }
