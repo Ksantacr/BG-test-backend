@@ -1,5 +1,6 @@
 using BGTest.Core.Entities;
 using BGTest.Core.Repositories;
+using BGTest.Core.Views;
 using BGTest.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,30 @@ public class ProductRepository : IProductRepository
     public async Task<List<Product>> GetAllAsync()
     {
         return await _dbContext.Products.ToListAsync();
+    }
+
+    public async Task<List<ProductBatchView>> SearchByParamAsync(string? searchTerm, int pageNumber = 1, int pageSize = 10)
+    {
+        var query = _dbContext.ProductBatchesView.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            if (int.TryParse(searchTerm, out int productId))
+            {
+                // If searchParam is a number, filter by ProductId
+                query = query.Where(pb => pb.ProductId == productId);
+            }
+            else
+            {
+                // Otherwise, filter by BatchNumber
+                query = query.Where(pb => pb.BatchNumber.Contains(searchTerm));
+            }
+        }
+
+        return await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
     }
 
     public async Task<Product?> GetByIdAsync(int id)

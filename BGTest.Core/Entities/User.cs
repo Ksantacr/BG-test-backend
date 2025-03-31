@@ -12,7 +12,7 @@ public class User
     [Column("lastname")]
     public string? LastName { get; set; }
     [Column("email")]
-    public string Email { get; set; }
+    public required string Email { get; set; }
     [Column("password_hash")]
-    public string PasswordHash { get; set; }
+    public required string PasswordHash { get; set; }
 }

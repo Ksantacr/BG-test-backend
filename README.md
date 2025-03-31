@@ -7,11 +7,11 @@ This project use Postgres database and EF to the operations on the database.
 
 ## Clean architecture structure
     .
-    ├── BLA.UserFlow.API                # presentation layer
-    ├── BLA.UserFlow.Application        # use cases (services), requests and responses
-    ├── BLA.UserFlow.Core               # core domain (entities, value objects)
-    ├── BLA.UserFlow.Infrastructure     # interaction with external dependencies (Database, IoC)
-    └── BLA.UserFlow.Tests              # unit test
+    ├── BGTest.API                # presentation layer
+    ├── BGTest.Application        # use cases (services), requests and responses
+    ├── BGTest.Core               # core domain (entities, value objects)
+    ├── BGTest.Infrastructure     # interaction with external dependencies (Database, IoC)
+    └── BGTest.Tests              # unit test
 
 Other folder
 

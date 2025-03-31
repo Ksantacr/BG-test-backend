@@ -93,3 +93,15 @@ VALUES
 (10, 'Batch1', 100.00),
 (10, 'Batch2', 102.00),
 (10, 'Batch3', 99.50);
+
+
+CREATE VIEW vw_ProductBatches AS
+SELECT
+    p.id AS product_id,
+    p.name AS product_name,
+    p.description AS product_description,
+    pb.batch_number,
+    pb.price,
+    pb.registration_date as registered
+FROM products p
+         JOIN product_batches pb ON p.id = pb.product_id;

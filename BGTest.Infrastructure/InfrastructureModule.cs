@@ -1,3 +1,4 @@
+using System.Net.Sockets;
 using System.Text;
 using BGTest.Core.Repositories;
 using BGTest.Infrastructure.Data;
@@ -19,6 +20,7 @@ public static class InfrastructureModule
             .AddDatabaseDependency()
             .AddAuthDependencies()
             .AddLoggingInfrastructure()
+            .AddCustomCors()
             .AddServiceDependencies();
     }
 
@@ -37,6 +39,22 @@ public static class InfrastructureModule
 
         return serviceCollection;
         
+    }
+    public static IServiceCollection AddCustomCors(this IServiceCollection serviceCollection)
+    {
+        return serviceCollection.AddCors(options =>
+        {
+            options.AddPolicy("all", builder =>
+            {
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            });
+            // options.AddPolicy("AllowLocalhost",
+            //     policy => policy.WithOrigins("http://localhost:4200")
+            //         .AllowAnyMethod()
+            //         .AllowAnyHeader()
+            //         .AllowCredentials()
+            //     ); 
+        });
     }
 
     public static IServiceCollection AddDatabaseDependency(this IServiceCollection serviceCollection)
@@ -62,7 +80,7 @@ public static class InfrastructureModule
                     ValidAudience = Environment.GetEnvironmentVariable("JWTAUDIENCE"),
                     IssuerSigningKey = new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(
-                            Environment.GetEnvironmentVariable("JWTKEY")))
+                            Environment.GetEnvironmentVariable("JWTKEY") ?? string.Empty))
                 });
 
         return serviceCollection;

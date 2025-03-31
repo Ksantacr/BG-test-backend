@@ -20,6 +20,13 @@ public class ProductService : IProductService
         return Result<IEnumerable<ProductDto>>.Success(result.Select(ProductDto.ProductToDto));
     }
 
+    public async Task<Result<IEnumerable<ProductBatchResponseDto>>> SearchProductsByTerm(string? term, int pageNumber, int pageSize)
+    {
+        var result = await _productRepository.SearchByParamAsync(term, pageNumber, pageSize);
+        return Result<IEnumerable<ProductBatchResponseDto>>.Success(
+            result.Select(ProductBatchResponseDto.ProductBatchToDto));
+    }
+
     public async Task<Result<ProductDto?>> GetProductById(int id)
     {
         var result = await _productRepository.GetByIdAsync(id);
